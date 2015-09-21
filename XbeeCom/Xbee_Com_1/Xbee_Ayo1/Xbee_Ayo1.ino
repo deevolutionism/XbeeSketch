@@ -11,6 +11,9 @@ bool connectXbee;
 */
 
 #include <SoftwareSerial.h>
+
+//This does not seems to work perfectly. I found out how to set a private Pan ID and connect to only the communicating Xbee by adding their SL and SH. And Vice versa.
+// But only through using the software program XCTU, we tried that and that worked. But we figured you wanted us to define this by code. This was all we found but it didnt really work.
 #define XB_PAN_ID              "ATID3000\r"
 #define XB_DESTINATION_ADDRESS "13A200, 40C90EAA\r"
 
@@ -47,16 +50,14 @@ void setup()
 {
   // Open serial communications and wait for port to open:
   Serial.begin(9600);
-  //Serial.println("Broadcasting your name.  See if others receive it.");
+
   // set the data rate for the SoftwareSerial port
   Xbee.begin(9600);
   
-  //Xbee.println("Yo this is g dawg on the radio");
   pinMode(redLed, OUTPUT);
   pinMode(greenLed, OUTPUT);
   pinMode(buttonPin, INPUT);
-  //Serial.println("This is " + myName);
-  //Xbee.println("This is " + myName);
+  
   getName();
 
   
@@ -65,7 +66,7 @@ void setup()
 void loop() // run over and over
 {
   serialCheck();
-  //Serial.println(myName);
+  
   potentiometer = analogRead(A0);
   potentiometer = map(potentiometer, 0,1023,2,31);
 
